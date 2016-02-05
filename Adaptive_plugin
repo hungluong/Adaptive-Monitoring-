@@ -1,0 +1,22 @@
+0 Run opendaylight virtual machine and mininet virtual machine 
+1 ssh to mininet machine 
+ssh -Y mininet@192.168.56.104
+
+2 ssh to controller machine
+ssh -Y ubuntu-odl@192.168.56.101
+
+3 run opendaylight distribution from Desktop
+
+cd ~/Desktop/controller-61e8ebd/opendaylight/distribution/opendaylight/target/distribution.opendaylight-osgipackage/opendaylight
+./run.sh -debug
+
+4 From mininet vm, run the mininet topo with 2 switch and 2 host 
+sudo mn --controller=remote,ip=192.168.56.101 --topo=linear,2
+
+5 Change the code of opendaylight in openflow plugin and do 
+mvn clean install 
+cp ~/Desktop/protocol_plugins_2016/openflow/target/protocol_plugins.openflow-0.4.5-Helium-SR3.jar ~/Desktop/controller-61e8ebd/opendaylight/distribution/opendaylight/target/distribution.opendaylight-osgipackage/opendaylight/plugins/
+
+6 Stop and restart controller again 
+
+7 Create the topology of 6 switch in script from: https://github.com/hungluong/Mininet_topo/blob/master/mesh6switches.py
